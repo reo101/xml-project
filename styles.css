@@ -1,0 +1,30 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+img {
+  max-width: 400px;
+  height: auto;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 1em;
+}

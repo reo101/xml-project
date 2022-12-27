@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="restaurants" type="restaurantsType" />
+
+  <xs:complexType name="restaurantsType">
+    <xs:sequence>
+      <xs:element name="region" type="regionType" maxOccurs="unbounded" />
+      <xs:element name="chain" type="chainType" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="regionType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:element name="restaurant" type="restaurantType" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="restaurantType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:element name="type" type="xs:string" />
+      <xs:element name="location" type="xs:string" />
+      <xs:element name="image" type="xs:string" />
+      <xs:element name="description" type="xs:string" />
+      <xs:element name="reviews" type="reviewsType" minOccurs="0" />
+      <xs:element name="chain" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="reviewsType">
+    <xs:sequence>
+      <xs:element name="review" type="reviewType" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="reviewType">
+    <xs:sequence>
+      <xs:element name="author" type="xs:string" />
+      <xs:element name="rating" type="xs:positiveInteger" />
+      <xs:element name="comment" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="chainType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required" />
+  </xs:complexType>
+</xs:schema>

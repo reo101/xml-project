@@ -1,66 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="restaurants.xsl" type="text/xsl"?>
-<restaurants xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="restaurants.xsd">
-  <region id="region1">
-    <name>Region 1</name>
-    <restaurant id="restaurant1">
-      <name>Restaurant 1</name>
-      <type>Fish</type>
-      <location>Sofia</location>
-      <image>restaurant1.jpg</image>
-      <description>A popular seafood restaurant located in Sofia.</description>
-      <reviews>
-        <review>
-          <author>John Smith</author>
-          <rating>4</rating>
-          <comment>The seafood was fresh and the service was excellent. Highly recommend this restaurant.</comment>
-        </review>
-        <review>
-          <author>Jane Doe</author>
-          <rating>5</rating>
-          <comment>Delicious food and great atmosphere. Will definitely be returning to this restaurant.</comment>
-        </review>
-      </reviews>
-      <chain />
-    </restaurant>
-    <restaurant id="restaurant2">
-      <name>Restaurant 2</name>
-      <type>Universal</type>
-      <location>Plovdiv</location>
-      <image>restaurant2.jpg</image>
-      <description>A versatile restaurant offering a wide range of dishes in Plovdiv.</description>
-      <reviews>
-        <review>
-          <author>Mike Johnson</author>
-          <rating>4</rating>
-          <comment>The food was great and the staff was very friendly. Would definitely recommend this restaurant.</comment>
-        </review>
-      </reviews>
-      <chain />
-    </restaurant>
-  </region>
-  <region id="region2">
-    <name>Region 2</name>
-    <restaurant id="restaurant3">
-      <name>Restaurant 3</name>
-      <type>Asian</type>
-      <location>Varna</location>
-      <image>restaurant3.jpg</image>
-      <description>A popular Asian restaurant located in Varna.</description>
-      <reviews>
-        <review>
-          <author>Ashley Williams</author>
-          <rating>5</rating>
-          <comment>The food was delicious and the atmosphere was very relaxing. Highly recommend this restaurant.</comment>
-        </review>
-      </reviews>
-      <chain />
-    </restaurant>
-  </region>
-  <chain id="chain1">
-    <name>Chain 1</name>
-  </chain>
-  <chain id="chain2">
-    <name>Chain 2</name>
-  </chain>
+<!DOCTYPE restaurants [
+  <!ENTITY region1 "кв. Витоша">
+  <!ENTITY region2 "кв. Център">
+  <!ENTITY region3 "кв. Студентски Град">
+]>
+<restaurants>
+  <restaurant id="restaurant1">
+    <name>SASA Fashion Food</name>
+    <type>Суши</type>
+    <region>&region1;</region>
+    <address>София, бул. Черни връх 100, Парадайз център, ниво 2</address>
+    <rating>4.0</rating>
+  </restaurant>
+  <restaurant id="restaurant2">
+    <name>SUSHI EXPRESS</name>
+    <type>Суши</type>
+    <region>&region2;</region>
+    <address>София, бул. Прага 20</address>
+    <rating>4.9</rating>
+  </restaurant>
+  <restaurant id="restaurant3">
+    <name>Сръбски Ресторант БЕСТ</name>
+    <type>Сръбска</type>
+    <region>&region3;</region>
+    <address>София, бул. Никола Й. Вапцаров 1, бившият Кошари</address>
+    <rating>4.4</rating>
+  </restaurant>
+  <restaurant id="restaurant4">
+    <name>Франко Пица</name>
+    <type>Пица</type>
+    <region>&region2;</region>
+    <address>София, Ул. Хан Аспарух 37</address>
+    <rating>4.2</rating>
+  </restaurant>
+  <restaurant id="restaurant5">
+    <name>Капитан Кук</name>
+    <type>Морска</type>
+    <region>&region2;</region>
+    <address>пл. Народно Събрание 4</address>
+    <rating>4.0</rating>
+  </restaurant>
 </restaurants>

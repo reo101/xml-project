@@ -6,7 +6,7 @@
     <html>
       <head>
         <title>Restaurant Catalog</title>
-        <link rel="stylesheet" type="text/css" href="styles.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
       </head>
       <body>
         <h1>Restaurant Catalog</h1>
@@ -23,36 +23,16 @@
               <xsl:value-of select="type" />
             </p>
             <p>
-              Location:
-              <xsl:value-of select="location" />
+              Region:
+              <xsl:value-of select="region" />
             </p>
-            <img src="{image}" alt="{name}" />
             <p>
-              <xsl:value-of select="description" />
+              Address:
+              <xsl:value-of select="address" />
             </p>
-            <h4>Reviews</h4>
-            <ul>
-              <xsl:for-each select="reviews/review">
-                <li>
-                  <p>
-                    Author:
-                    <xsl:value-of select="author" />
-                  </p>
-                  <p>
-                    Rating:
-                    <xsl:value-of select="rating" />
-                  </p>
-                  <p>
-                    Comment:
-                    <xsl:value-of select="comment" />
-                  </p>
-                </li>
-              </xsl:for-each>
-            </ul>
             <p>
-              Part of the
-              <xsl:value-of select="document('')/*/chain[@id=current()/chain/@id]/name" />
-              chain
+              Rating:
+              <xsl:value-of select="rating" />
             </p>
           </xsl:for-each>
         </xsl:for-each>

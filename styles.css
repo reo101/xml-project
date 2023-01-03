@@ -2,29 +2,39 @@ body {
   font-family: Arial, sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-weight: bold;
-  margin-bottom: 0.5em;
+h1 {
+  text-align: center;
+  font-size: 2em;
+  margin: 1em 0;
 }
 
-img {
-  max-width: 400px;
-  height: auto;
+h2 {
+  font-size: 1.5em;
+  margin: 1em 0;
+}
+
+h3 {
+  font-size: 1.2em;
+  margin: 0.5em 0;
 }
 
 p {
-  margin-bottom: 1em;
+  margin: 0.5em 0;
 }
 
 ul {
-  list-style-type: none;
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 
 li {
-  margin-bottom: 1em;
+  margin: 0.5em 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.5em auto;
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="restaurants.xsl" type="text/xsl"?>
+
+<!DOCTYPE catalogue [
+  <!NOTATION jpeg SYSTEM "image/jpeg">
+  <!ENTITY restaurant1_image SYSTEM "./res/restaurant1.jpg" NDATA jpeg>
+  <!ENTITY restaurant2_image SYSTEM "./res/restaurant2.jpg" NDATA jpeg>
+  <!ENTITY restaurant3_image SYSTEM "./res/restaurant3.jpg" NDATA jpeg>
+  <!ENTITY restaurant4_image SYSTEM "./res/restaurant4.jpg" NDATA jpeg>
+  <!ENTITY restaurant5_image SYSTEM "./res/restaurant5.jpg" NDATA jpeg>
+]>
+
+<catalogue>
+  <types>
+    <type id="sushi">Sushi</type>
+    <type id="pica">Pica</type>
+    <type id="morska">Morska</type>
+    <type id="srabska">Srabska</type>
+  </types>
+  <regions>
+    <region id="kv_vitosha">kv. Vitosha</region>
+    <region id="kv_centar">kv. Centar</region>
+    <region id="kv_studentski_grad">kv. Studentski Grad</region>
+  </regions>
+  <restaurants>
+    <restaurant id="restaurant1">
+      <name>SASA Fashion Food</name>
+      <type idref="sushi"/>
+      <region idref="kv_vitosha"/>
+      <address>Sofia, bul. Cherni vrah 100, Paradise center, nivo 2</address>
+      <rating>4.0</rating>
+      <image source="restaurant1_image"/>
+    </restaurant>
+    <restaurant id="restaurant2">
+      <name>SUSHI EXPRESS</name>
+      <type idref="sushi"/>
+      <region idref="kv_centar"/>
+      <address>Sofia, bul. Praga 20</address>
+      <rating>4.9</rating>
+      <image source="restaurant2_image"/>
+    </restaurant>
+    <restaurant id="restaurant3">
+      <name>Srabski Restorant BEST</name>
+      <type idref="srabska"/>
+      <region idref="kv_studentski_grad"/>
+      <address>Sofia, bul. Nikolaj J. Vapcarov 1</address>
+      <rating>4.4</rating>
+      <image source="restaurant3_image"/>
+    </restaurant>
+    <restaurant id="restaurant4">
+      <name>Franco Pica</name>
+      <type idref="pica"/>
+      <region idref="kv_centar"/>
+      <address>Sofia, Ul. Han Asparuh 37</address>
+      <rating>4.2</rating>
+      <image source="restaurant4_image"/>
+    </restaurant>
+    <restaurant id="restaurant5">
+      <name>Kapitan Kuk</name>
+      <type idref="morska"/>
+      <region idref="kv_centar"/>
+      <address>pl. Narodno Sabranie 4</address>
+      <rating>4.0</rating>
+      <image source="restaurant5_image"/>
+    </restaurant>
+  </restaurants>
+</catalogue>

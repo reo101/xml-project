@@ -3,13 +3,17 @@
 <xsl:output method="html" indent="yes" doctype-public="-//W3C//DTD HTML 4.01//EN" doctype-system="http://www.w3.org/TR/html4/strict.dtd"/>
 
 <xsl:template match="/">
-  <html>
-  <head>
-    <title>Restaurant Catalogue</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-  </head>
-  <body>
-    <h1>Restaurant Catalogue</h1>
+  <xsl:call-template name="sort_table">
+    <xsl:with-param name="sortOn">rating</xsl:with-param>
+    <xsl:with-param name="sortOrder">descending</xsl:with-param>
+    <xsl:with-param name="sortDataType">number</xsl:with-param>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template name="sort_table">
+  <xsl:param name="sortOn"/>
+  <xsl:param name="sortDataType"/>
+  <xsl:param name="sortOrder"/>
     <table>
       <tr>
         <th>Name</th>
@@ -20,6 +24,7 @@
         <th>Image</th>
       </tr>
       <xsl:for-each select="catalogue/restaurants/restaurant">
+        <xsl:sort select="*[name(.)=$sortOn]" order="{$sortOrder}" data-type="{$sortDataType}"/>
         <tr>
           <td><xsl:value-of select="name"/></td>
           <td>
@@ -36,8 +41,6 @@
         </tr>
       </xsl:for-each>
     </table>
-  </body>
-  </html>
 </xsl:template>
 
 </xsl:stylesheet>

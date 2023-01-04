@@ -51,7 +51,7 @@ for i, row in enumerate(data, 1):
     output += f'      <type idref="{clean(row["Type"])}"/>\n'
     output += f'      <region idref="{clean(row["Region"])}"/>\n'
     output += f'      <address>{row["Address"]}</address>\n'
-    output += f'      <rating>{row["Rating"]}</rating>\n'
+    output += f'      <rating>{float(row["Rating"])}</rating>\n'
     output += f'      <image source="restaurant{i}_image"/>\n'
     output += '    </restaurant>\n'
 output += '  </restaurants>\n'
@@ -59,5 +59,5 @@ output += '  </restaurants>\n'
 output += '</catalogue>\n'
 
 # Save the XML output to a file
-with open('restauraKURnts.xml', 'w') as f:
+with open('restaurants.xml', 'w') as f:
     f.write(output)

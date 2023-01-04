@@ -24,7 +24,7 @@ let init = function() {
     xsltProcessor = new XSLTProcessor();
     xsltProcessor.importStylesheet(xsl);
 
-    generateTable();
+    // generateTable();
 };
 
 var sortOn = "rating";
@@ -41,6 +41,7 @@ let toggleSortOrder = function() {
 
 let generateTable = function() {
     xsltProcessor.clearParameters();
+    xsltProcessor.setParameter(null, "firstLoad", "false");
     xsltProcessor.setParameter(null, "sortOn", sortOn);
     xsltProcessor.setParameter(null, "sortOrder", sortOrder);
     xsltProcessor.setParameter(null, "sortDataType", sortDataType);

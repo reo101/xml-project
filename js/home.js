@@ -11,23 +11,59 @@ function loadXMLDoc(dname) {
     return xhttp.responseXML;
 }
 
-let init = function() {
-    xml=loadXMLDoc("restaurants.xml");
-    xsl=loadXMLDoc("restaurants.xsl");
+const RESTAURANTS_TABLES_DIV = "#restaurants_table";
 
-    // code for IE
-if (window.ActiveXObject || xhttp.responseType == "msxml-document")
-{
-ex = xml.transformNode(xsl);
-document.getElementById("example").innerHTML = ex;
-}
-// code for Chrome, Firefox, Opera, etc.
-else if (document.implementation && document.implementation.createDocument)
-{
+var xml;
+var xsl;
+var xsltProcessor;
+
+let init = function() {
+    xml = loadXMLDoc("restaurants.xml");
+    xsl = loadXMLDoc("restaurants.xsl");
+
     xsltProcessor = new XSLTProcessor();
     xsltProcessor.importStylesheet(xsl);
-    resultDocument = xsltProcessor.transformToFragment(xml, document);
-    document.getElementById("restaurants_table").replaceWith(resultDocument);
-}}
 
-$( document ).ready(init);
+    generateTable();
+};
+
+var sortOn = "rating";
+var sortOrder = "ascending";
+var sortDataType = "number";
+
+let getDataType = function(name) {
+    return name == "rating" ? "number" : "text";
+}
+
+let toggleSortOrder = function() {
+    sortOrder = sortOrder == "ascending" ? "descending" : "ascending";
+};
+
+let generateTable = function() {
+    xsltProcessor.clearParameters();
+    xsltProcessor.setParameter(null, "sortOn", sortOn);
+    xsltProcessor.setParameter(null, "sortOrder", sortOrder);
+    xsltProcessor.setParameter(null, "sortDataType", sortDataType);
+
+    resultDocument = xsltProcessor.transformToFragment(xml, document);
+    $(RESTAURANTS_TABLES_DIV).html(resultDocument);
+};
+
+let newSort = function(by) {
+    if (by == sortOn) {
+        toggleSortOrder();
+    } else {
+        sortOn = by;
+        sortOrder = "ascending";
+        sortDataType = getDataType(by);
+    }
+
+    console.log(by)
+    console.log(sortOn);
+    console.log(sortOrder);
+    console.log(sortDataType);
+
+    generateTable();
+};
+
+$(document).ready(init);

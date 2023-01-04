@@ -58,11 +58,6 @@ let newSort = function(by) {
         sortDataType = getDataType(by);
     }
 
-    console.log(by)
-    console.log(sortOn);
-    console.log(sortOrder);
-    console.log(sortDataType);
-
     generateTable();
 };
 

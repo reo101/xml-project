@@ -70,7 +70,7 @@
 
   <xsl:template match="image">
     <td>
-      <img src="{unparsed-entity-uri(image/@source)}" alt="{../name}" />
+      <img src="{unparsed-entity-uri(@source)}" alt="{../name}" />
     </td>
   </xsl:template>
 

@@ -27,10 +27,6 @@ let init = function() {
     // generateTable();
 };
 
-var sortOn = "rating";
-var sortOrder = "ascending";
-var sortDataType = "number";
-
 let getDataType = function(name) {
     return name == "rating" ? "number" : "text";
 }

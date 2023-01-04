@@ -3,9 +3,9 @@
   <xsl:output method="html" indent="yes" doctype-public="-//W3C//DTD HTML 4.01//EN" doctype-system="http://www.w3.org/TR/html4/strict.dtd" />
 
   <xsl:param name="firstLoad">true</xsl:param>
-  <xsl:param name="sortOn">type</xsl:param>
-  <xsl:param name="sortDataType">text</xsl:param>
-  <xsl:param name="sortOrder">ascending</xsl:param>
+  <xsl:param name="sortOn">rating</xsl:param>
+  <xsl:param name="sortDataType">number</xsl:param>
+  <xsl:param name="sortOrder">descending</xsl:param>
 
   <!-- define a key to index all elements by their id -->
   <xsl:key name="elementById" match="*" use="@id" />
@@ -28,6 +28,12 @@
         <title>Restaurant Catalogue</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <meta charset="UFT-8" />
+
+        <script>
+          var sortOn = "<xsl:value-of select='$sortOn'/>";
+          var sortOrder = "<xsl:value-of select='$sortOrder'/>";
+          var sortDataType = "<xsl:value-of select='$sortDataType'/>";
+        </script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css" />

@@ -2,7 +2,7 @@ import csv
 
 # Read in the CSV data
 with open('data.csv', 'r') as f:
-    reader = csv.DictReader(f, delimiter='|')
+    reader = csv.DictReader((line for line in f if not line.isspace()), delimiter='|')
     data = list(reader)
 
 # Extract the unique types and regions from the data
@@ -16,7 +16,7 @@ def clean(s):
 # Generate the XML output
 
 # Generate the entities list
-entities = ''.join(f'  <!ENTITY restaurant{i}_image SYSTEM "./res/restaurant{i}.jpg" NDATA jpeg>\n' for i in range(1, 1+len(data)))
+entities = ''.join(f'  <!ENTITY restaurant{i}_image SYSTEM "./images/restaurants/restaurant{i}.jpg" NDATA jpeg>\n' for i in range(1, 1+len(data)))
 
 # Generate initial elements and DTD for the entities
 output = (

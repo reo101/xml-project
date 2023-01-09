@@ -26,7 +26,7 @@
     <html>
       <head>
         <title>Restaurant Catalogue</title>
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="style.css"/>
         <meta charset="UFT-8" />
 
         <script>
@@ -35,9 +35,9 @@
           var sortDataType = "<xsl:value-of select='$sortDataType'/>";
         </script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"/>
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"/>
 
         <script type="text/javascript" src="js/home.js"></script>
       </head>

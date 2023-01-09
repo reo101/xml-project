@@ -3,7 +3,8 @@
 
 <!DOCTYPE catalogue [
   <!NOTATION jpeg SYSTEM "image/jpeg">
-  <!ENTITY restaurant1_image SYSTEM "./images/restaurants/restaurant1.jpg" NDATA jpeg>
+  <!ENTITY restaurant1_image SYSTEM
+    "./images/restaurants/restaurant1.jpg" NDATA jpeg>
   <!ENTITY restaurant2_image SYSTEM "./images/restaurants/restaurant2.jpg" NDATA jpeg>
   <!ENTITY restaurant3_image SYSTEM "./images/restaurants/restaurant3.jpg" NDATA jpeg>
   <!ENTITY restaurant4_image SYSTEM "./images/restaurants/restaurant4.jpg" NDATA jpeg>
@@ -12,19 +13,21 @@
   <!ENTITY restaurant7_image SYSTEM "./images/restaurants/restaurant7.jpg" NDATA jpeg>
 ]>
 
-<catalogue>
+<catalogue 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:noNamespaceSchemaLocation="restaurants.xsd">
   <types>
+    <type id="sushi">Sushi</type>
     <type id="srabska">Srabska</type>
     <type id="morska">Morska</type>
-    <type id="sushi">Sushi</type>
     <type id="bulgarska">Bulgarska</type>
     <type id="pizza">Pizza</type>
   </types>
   <regions>
-    <region id="stara_zagora">Stara Zagora</region>
-    <region id="varna">Varna</region>
     <region id="sofia">Sofia</region>
     <region id="burgas">Burgas</region>
+    <region id="stara_zagora">Stara Zagora</region>
+    <region id="varna">Varna</region>
   </regions>
   <restaurants>
     <restaurant id="restaurant1">
@@ -55,7 +58,7 @@
       <name>Franco Pica</name>
       <type idref="pizza"/>
       <region idref="burgas"/>
-      <address>Sofia, Ul. Han Asparuh 37</address>
+      <address>Ul. Han Asparuh 37</address>
       <rating>4.2</rating>
       <image source="restaurant4_image"/>
     </restaurant>

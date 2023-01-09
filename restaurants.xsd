@@ -1,14 +1,30 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
   <xs:element name="catalogue" type="catalogueType">
-  <xs:key name="typeKey">
-    <xs:selector xpath="types/type"/>
-    <xs:field xpath="@id"/>
-  </xs:key>
-  <xs:keyref name="typeKeyref" refer="typeKey">
-    <xs:selector xpath="restaurants/restaurant/type"/>
-    <xs:field xpath="@idref"/>
-  </xs:keyref>
+
+    <!-- possible types are stored within the @id attributes 
+      of the elements types/type-->
+    <xs:key name="typeKey">
+      <xs:selector xpath="types/type"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <!-- we expect the type element within each restaurant to refer
+    to a valid type id -->
+    <xs:keyref name="typeKeyref" refer="typeKey">
+      <xs:selector xpath="restaurants/restaurant/type"/>
+      <xs:field xpath="@idref"/>
+    </xs:keyref>
+    
+    <xs:key name="regionKey">
+      <xs:selector xpath="regions/region"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="regionKeyRef" refer="regionKey">
+      <xs:selector xpath="restaurants/restaurant/region"/>
+      <xs:field xpath="@idref"/>
+    </xs:keyref>
   </xs:element>
+
   <xs:complexType name="catalogueType">
     <xs:sequence>
       <xs:element ref="types"/>
@@ -16,56 +32,61 @@
       <xs:element ref="restaurants"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="types" type="typesType"/>
-  <xs:complexType name="typesType">
-    <xs:sequence>
-      <xs:element name="type" type="typeType" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="typeType">
+
+  <xs:element name="types">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element 
+          name="type" minOccurs="1" maxOccurs="unbounded" 
+          type="idAndPCDataOnly"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="regions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="region" minOccurs="1" maxOccurs="unbounded" 
+        type="idAndPCDataOnly"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="idAndPCDataOnly">
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attribute name="id" type="xs:string" use="required"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-  <xs:element name="regions" type="regionsType"/>
-  <xs:complexType name="regionsType">
-    <xs:sequence>
-      <xs:element name="region" type="regionType" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="regionType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute name="id" type="xs:string" use="required"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:element name="restaurants" type="restaurantsType"/>
-  <xs:complexType name="restaurantsType">
-    <xs:sequence>
-      <xs:element name="restaurant" type="restaurantType" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
+
+  <xs:element name="restaurants">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="restaurant" type="restaurantType" 
+          minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
   <xs:complexType name="restaurantType">
     <xs:sequence>
       <xs:element name="name" type="xs:string"/>
-      <xs:element name="type" type="typeRefType"/>
-      <xs:element name="region" type="regionRefType"/>
+      <xs:element name="type" type="idRefOnlyType"/>
+      <xs:element name="region" type="idRefOnlyType"/>
       <xs:element name="address" type="xs:string"/>
       <xs:element name="rating" type="xs:float"/>
-      <xs:element name="image" type="imageType"/>
+      <xs:element name="image">
+        <xs:complexType>
+          <xs:attribute name="source" type="xs:ENTITY" use="required"/>
+        </xs:complexType>
+      </xs:element>
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
   </xs:complexType>
-  <xs:complexType name="typeRefType">
+
+  <xs:complexType name="idRefOnlyType">
     <xs:attribute name="idref" type="xs:string" use="required"/>
   </xs:complexType>
-  <xs:complexType name="regionRefType">
-    <xs:attribute name="idref" type="xs:string" use="required"/>
-  </xs:complexType>
-  <xs:complexType name="imageType">
-      <xs:attribute name="source" type="xs:ENTITY" use="required"/>
-  </xs:complexType>
+  
 </xs:schema>

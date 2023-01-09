@@ -8,8 +8,7 @@ h1 {
   color: rgba(134, 37, 136, 0.8);
 }
 
-p,
-a {
+p {
   margin: 0px;
   margin-bottom: 5px;
   margin-left: 10px;
@@ -34,14 +33,15 @@ tr:nth-child(even) {
 }
 
 tr:nth-child(odd) {
-  background-color: #b7b7b7;
+  background-color: #dddada;
 }
 
 table img {
-  max-height: 100px;
+  max-height: 80px;
 }
 
-tr > td, tr > th {
+tr > td,
+tr > th {
   text-align: center;
   border: 1px solid black;
   padding: 10px;
@@ -50,7 +50,7 @@ tr > td, tr > th {
 tr > th {
   background-color: pink;
   font-weight: bold;
-  color: blue;
+  color: #7b5c00;
 }
 
 td:last-child {

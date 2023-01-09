@@ -23,8 +23,6 @@ let init = function() {
 
     xsltProcessor = new XSLTProcessor();
     xsltProcessor.importStylesheet(xsl);
-
-    // generateTable();
 };
 
 let getDataType = function(name) {

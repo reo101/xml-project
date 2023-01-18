@@ -1,16 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?xml-stylesheet href="restaurants.xsl" type="text/xsl"?>
 
 <!DOCTYPE catalogue [
   <!NOTATION jpeg SYSTEM "image/jpeg">
-  <!ENTITY restaurant1_image SYSTEM
-    "./images/restaurants/restaurant1.jpg" NDATA jpeg>
-  <!ENTITY restaurant2_image SYSTEM "./images/restaurants/restaurant2.jpg" NDATA jpeg>
-  <!ENTITY restaurant3_image SYSTEM "./images/restaurants/restaurant3.jpg" NDATA jpeg>
-  <!ENTITY restaurant4_image SYSTEM "./images/restaurants/restaurant4.jpg" NDATA jpeg>
-  <!ENTITY restaurant5_image SYSTEM "./images/restaurants/restaurant5.jpg" NDATA jpeg>
-  <!ENTITY restaurant6_image SYSTEM "./images/restaurants/restaurant6.jpg" NDATA jpeg>
-  <!ENTITY restaurant7_image SYSTEM "./images/restaurants/restaurant7.jpg" NDATA jpeg>
+  <!ENTITY restaurant1_image PUBLIC "restaurant1_image_identifier" "https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant1.jpg" NDATA jpeg>
+  <!ENTITY restaurant2_image PUBLIC "restaurant2_image_identifier" "https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant2.jpg" NDATA jpeg>
+  <!ENTITY restaurant3_image PUBLIC "restaurant3_image_identifier" "https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant3.jpg" NDATA jpeg>
+  <!ENTITY restaurant4_image PUBLIC "restaurant4_image_identifier" "https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant4.jpg" NDATA jpeg>
+  <!ENTITY restaurant5_image PUBLIC "restaurant5_image_identifier" "https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant5.jpg" NDATA jpeg>
+  <!ENTITY restaurant6_image PUBLIC "restaurant6_image_identifier" "https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant6.jpg" NDATA jpeg>
+  <!ENTITY restaurant7_image PUBLIC "restaurant7_image_identifier" "https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant7.jpg" NDATA jpeg>
+  <!ELEMENT catalogue (types,regions,restaurants)>
+  <!ATTLIST catalogue 
+    xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation CDATA #FIXED "restaurants.xsd">
+  <!ELEMENT types (type+)>
+  <!ELEMENT type (#PCDATA)>
+  <!ATTLIST type id ID #IMPLIED>
+  <!ATTLIST type idref IDREF #IMPLIED>
+  <!ELEMENT regions (region+)>
+  <!ELEMENT region (#PCDATA)>
+  <!ATTLIST region id ID #IMPLIED>
+  <!ATTLIST region idref IDREF #IMPLIED>
+  <!ELEMENT restaurants (restaurant+)>
+  <!ELEMENT restaurant (name,type,region,address,rating,image)>
+  <!ATTLIST restaurant id ID #REQUIRED>
+  <!ELEMENT name (#PCDATA)>
+  <!ELEMENT address (#PCDATA)>
+  <!ELEMENT rating (#PCDATA)>
+  <!ELEMENT image EMPTY>
+  <!ATTLIST image source ENTITY #REQUIRED>
 ]>
 
 <catalogue 

@@ -55,7 +55,7 @@
   <xs:complexType name="idAndPCDataOnly">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -82,11 +82,11 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="idRefOnlyType">
-    <xs:attribute name="idref" type="xs:string" use="required"/>
+    <xs:attribute name="idref" type="xs:IDREF" use="required"/>
   </xs:complexType>
   
 </xs:schema>

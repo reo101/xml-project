@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="html" indent="yes" doctype-public="-//W3C//DTD HTML 4.01//EN" doctype-system="http://www.w3.org/TR/html4/strict.dtd" />
 
   <xsl:param name="firstLoad">true</xsl:param>
@@ -34,67 +34,7 @@
         <meta charset="UFT-8" />
 
         <!-- import style sheet -->
-        <!-- <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/reo101/xml-project/master/style.css"/> -->
-        <style>
-            body {
-                background-color: lightgreen;
-              }
-              
-              h1 {
-                font-size: 45px;
-                text-align: center;
-                color: rgba(134, 37, 136, 0.8);
-              }
-              
-              p {
-                margin: 0px;
-                margin-bottom: 5px;
-                margin-left: 10px;
-                padding: 0px;
-                font-size: 15px;
-                font-weight: bold;
-                text-overflow: ellipsis;
-              }
-              
-              table {
-                border-collapse: collapse;
-                margin-left: auto;
-                margin-right: auto;
-              }
-              
-              table:first-child {
-                border-color: magenta;
-              }
-              
-              tr:nth-child(even) {
-                background-color: #f1f1f1;
-              }
-              
-              tr:nth-child(odd) {
-                background-color: #dddada;
-              }
-              
-              table img {
-                max-height: 80px;
-              }
-              
-              tr > td,
-              tr > th {
-                text-align: center;
-                border: 1px solid black;
-                padding: 10px;
-              }
-              
-              tr > th {
-                background-color: pink;
-                font-weight: bold;
-                color: #7b5c00;
-              }
-              
-              td:last-child {
-                font-style: italic;
-              }              
-        </style>
+        <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/reo101/xml-project/master/style.css"/>
 
         <!-- some JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"/>
@@ -104,69 +44,10 @@
           var sortOn = "<xsl:value-of select='$sortOn'/>";
           var sortOrder = "<xsl:value-of select='$sortOrder'/>";
           var sortDataType = "<xsl:value-of select='$sortDataType'/>";
-          function loadXMLDoc(dname) {
-                if (window.XMLHttpRequest) {
-                    xhttp = new XMLHttpRequest();
-                } else {
-                    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-            
-                xhttp.open("GET", dname, false);
-                xhttp.send();
-            
-                return xhttp.responseXML;
-            }
-            
-            const RESTAURANTS_TABLES_DIV = "#restaurants_table";
-            
-            var xml;
-            var xsl;
-            var xsltProcessor;
-            
-            let init = function() {
-                xml = loadXMLDoc("restaurants.xml");
-                xsl = loadXMLDoc("restaurants.xsl");
-            
-                xsltProcessor = new XSLTProcessor();
-                xsltProcessor.importStylesheet(xsl);
-            };
-            
-            let getDataType = function(name) {
-                return name == "rating" ? "number" : "text";
-            }
-            
-            let toggleSortOrder = function() {
-                sortOrder = sortOrder == "ascending" ? "descending" : "ascending";
-            };
-            
-            let generateTable = function() {
-                xsltProcessor.clearParameters();
-                xsltProcessor.setParameter(null, "firstLoad", "false");
-                xsltProcessor.setParameter(null, "sortOn", sortOn);
-                xsltProcessor.setParameter(null, "sortOrder", sortOrder);
-                xsltProcessor.setParameter(null, "sortDataType", sortDataType);
-            
-                resultDocument = xsltProcessor.transformToFragment(xml, document);
-                $(RESTAURANTS_TABLES_DIV).html(resultDocument);
-            };
-            
-            let newSort = function(by) {
-                if (by == sortOn) {
-                    toggleSortOrder();
-                } else {
-                    sortOn = by;
-                    sortOrder = "ascending";
-                    sortDataType = getDataType(by);
-                }
-            
-                generateTable();
-            };
-            
-            $(document).ready(init);
         </script>
 
         <!-- load the JS for dynamic resorting -->
-        <!-- <script type="text/javascript" src="https://raw.githubusercontent.com/reo101/xml-project/master/js/home.js"></script> -->
+        <script type="text/javascript" src="https://raw.githubusercontent.com/reo101/xml-project/master/js/home.js"></script>
       </head>
       <body>
         <h1>Restaurant Catalogue</h1>
@@ -245,27 +126,30 @@
       marking for each header its corresponding element from the XML <restaurant>'s children
       and whether this column should be sortable or not
     -->
-    <xsl:variable name="pairs" select="'name,1|type,1|region,1|address,0|rating,1|image,0'"/>
+    <xsl:variable name="header_keys">
+      <key sortable="true">name</key>
+      <key sortable="true">type</key>
+      <key sortable="true">region</key>
+      <key sortable="false">address</key>
+      <key sortable="true">rating</key>
+      <key sortable="false">image</key>
+    </xsl:variable>
     
     <tr>
       <!-- then we iterate over all header keys -->
-      <xsl:for-each select="tokenize($pairs, '\|')">
-        <xsl:variable name="pair" select="tokenize(., ',')"/>
-        <xsl:variable name="key" select="$pair[1]"/>
-        <xsl:variable name="sortable" select="$pair[2]"/>
-      
+      <xsl:for-each select="$header_keys/key">
         <!-- map the first character to upper case as display value -->
         <xsl:variable name="displayValue" 
-          select="concat(translate(substring($key, 1, 1), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'), substring($key, 2))" />
+          select="concat(translate(substring(., 1, 1), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'), substring(., 2))" />
         <th>
           <xsl:choose>
             <!-- if this header should be sortable -->
-            <xsl:when test="$sortable='1'">
+            <xsl:when test="@sortable='true'">
               <!-- render a cute graphical caret to visualize whether
               this is the current header we're sorting by and in which order -->
               <xsl:variable name="caret">
                 <xsl:call-template name="show_sorting_caret">
-                  <xsl:with-param name="header_key" select="$key" />
+                  <xsl:with-param name="header_key" select="." />
                 </xsl:call-template>
               </xsl:variable>
 
@@ -274,7 +158,7 @@
               <!-- also, for sortable columns, we wrap the displayValue in a link to a
                 javascript function to sort by it dynamically on client demand 
                 setting the necessary html attributes for the js function to work-->
-              <a sort-on="{$key}" href="javascript:newSort('{$key}')">
+              <a sort-on="{.}" href="javascript:newSort('{.}')">
                 <xsl:value-of select="$displayValue" />
               </a>
               <xsl:value-of select="$caret" />

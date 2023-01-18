@@ -1,0 +1,202 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Restaurant Catalogue</title>
+      <meta charset="UFT-8"><style>
+            body {
+                background-color: lightgreen;
+              }
+              
+              h1 {
+                font-size: 45px;
+                text-align: center;
+                color: rgba(134, 37, 136, 0.8);
+              }
+              
+              p {
+                margin: 0px;
+                margin-bottom: 5px;
+                margin-left: 10px;
+                padding: 0px;
+                font-size: 15px;
+                font-weight: bold;
+                text-overflow: ellipsis;
+              }
+              
+              table {
+                border-collapse: collapse;
+                margin-left: auto;
+                margin-right: auto;
+              }
+              
+              table:first-child {
+                border-color: magenta;
+              }
+              
+              tr:nth-child(even) {
+                background-color: #f1f1f1;
+              }
+              
+              tr:nth-child(odd) {
+                background-color: #dddada;
+              }
+              
+              table img {
+                max-height: 80px;
+              }
+              
+              tr > td,
+              tr > th {
+                text-align: center;
+                border: 1px solid black;
+                padding: 10px;
+              }
+              
+              tr > th {
+                background-color: pink;
+                font-weight: bold;
+                color: #7b5c00;
+              }
+              
+              td:last-child {
+                font-style: italic;
+              }              
+        </style><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script>
+          var sortOn = "rating";
+          var sortOrder = "descending";
+          var sortDataType = "number";
+          function loadXMLDoc(dname) {
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            
+                xhttp.open("GET", dname, false);
+                xhttp.send();
+            
+                return xhttp.responseXML;
+            }
+            
+            const RESTAURANTS_TABLES_DIV = "#restaurants_table";
+            
+            var xml;
+            var xsl;
+            var xsltProcessor;
+            
+            let init = function() {
+                xml = loadXMLDoc("restaurants.xml");
+                xsl = loadXMLDoc("restaurants.xsl");
+            
+                xsltProcessor = new XSLTProcessor();
+                xsltProcessor.importStylesheet(xsl);
+            };
+            
+            let getDataType = function(name) {
+                return name == "rating" ? "number" : "text";
+            }
+            
+            let toggleSortOrder = function() {
+                sortOrder = sortOrder == "ascending" ? "descending" : "ascending";
+            };
+            
+            let generateTable = function() {
+                xsltProcessor.clearParameters();
+                xsltProcessor.setParameter(null, "firstLoad", "false");
+                xsltProcessor.setParameter(null, "sortOn", sortOn);
+                xsltProcessor.setParameter(null, "sortOrder", sortOrder);
+                xsltProcessor.setParameter(null, "sortDataType", sortDataType);
+            
+                resultDocument = xsltProcessor.transformToFragment(xml, document);
+                $(RESTAURANTS_TABLES_DIV).html(resultDocument);
+            };
+            
+            let newSort = function(by) {
+                if (by == sortOn) {
+                    toggleSortOrder();
+                } else {
+                    sortOn = by;
+                    sortOrder = "ascending";
+                    sortDataType = getDataType(by);
+                }
+            
+                generateTable();
+            };
+            
+            $(document).ready(init);
+        </script></head>
+   <body>
+      <h1>Restaurant Catalogue</h1>
+      <div id="restaurants_table">
+         <table>
+            <tr>
+               <th><a sort-on="name" href="javascript:newSort('name')">Name</a></th>
+               <th><a sort-on="type" href="javascript:newSort('type')">Type</a></th>
+               <th><a sort-on="region" href="javascript:newSort('region')">Region</a></th>
+               <th>Address</th>
+               <th>▾<a sort-on="rating" href="javascript:newSort('rating')">Rating</a>▾
+               </th>
+               <th>Image</th>
+            </tr>
+            <tr>
+               <td>SUSHI EXPRESS</td>
+               <td>Sushi</td>
+               <td>Varna</td>
+               <td>Centar, bul. Praga 20</td>
+               <td>4.9</td>
+               <td><img src="https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant2.jpg" alt="SUSHI EXPRESS"></td>
+            </tr>
+            <tr>
+               <td>Zlatna srabska skara</td>
+               <td>Srabska</td>
+               <td>Stara Zagora</td>
+               <td>bul. Nikola Petkov 17</td>
+               <td>4.8</td>
+               <td><img src="https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant6.jpg" alt="Zlatna srabska skara"></td>
+            </tr>
+            <tr>
+               <td>Srabski Restorant BEST</td>
+               <td>Srabska</td>
+               <td>Sofia</td>
+               <td>bul. Nikolaj J. Vapcarov 1</td>
+               <td>4.4</td>
+               <td><img src="https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant3.jpg" alt="Srabski Restorant BEST"></td>
+            </tr>
+            <tr>
+               <td>Franco Pica</td>
+               <td>Pizza</td>
+               <td>Burgas</td>
+               <td>Ul. Han Asparuh 37</td>
+               <td>4.2</td>
+               <td><img src="https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant4.jpg" alt="Franco Pica"></td>
+            </tr>
+            <tr>
+               <td>SASA Fashion Food</td>
+               <td>Sushi</td>
+               <td>Sofia</td>
+               <td>bul. Cherni vrah 100</td>
+               <td>4.0</td>
+               <td><img src="https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant1.jpg" alt="SASA Fashion Food"></td>
+            </tr>
+            <tr>
+               <td>Kapitan Kuk</td>
+               <td>Morska</td>
+               <td>Sofia</td>
+               <td>pl. Narodno Sabranie 4</td>
+               <td>4.0</td>
+               <td><img src="https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant5.jpg" alt="Kapitan Kuk"></td>
+            </tr>
+            <tr>
+               <td>Trite Shterki</td>
+               <td>Bulgarska</td>
+               <td>Varna</td>
+               <td>bul. Dondukov 60A</td>
+               <td>3.9</td>
+               <td><img src="https://raw.githubusercontent.com/reo101/xml-project/master/images/restaurants/restaurant7.jpg" alt="Trite Shterki"></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>
